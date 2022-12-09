@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="container px-4 px-lg-5">
+	<a class="navbar-brand ms-3" href="{{ path('app_home') }}">
+		RobyMarket
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+			{% if not app.user %}
+				<li class="nav-item ">
+					<a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">
+						<i class="fa fa-sign-in-alt"></i>
+					</a>
+				</li>
+
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="">
+						{{ app.user.username }}
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_logout') }}">
+						<i class="fa fa-sign-out-alt"></i>
+					</a>
+				</li>
+
+			{% endif %}
+
+			{% if is_granted("ROLE_ADMIN") %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Admin
+
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path('admin') }}">
+							BackOffice
+						</a>
+
+					</div>
+				</li>
+
+
+			{% endif %}
+
+			{% if app.user %}
+				<li class="dropdown">
+					{# <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="user"> #}
+					{# <i class="fa fa-user" aria-hidden="true"></i> #}<span class="caret"> </span>
+					{# <span class="sr-only">{{ app.username }}</span> #}
+				</li>
+			</a>
+			<ul
+				class="dropdown-menu user" role="menu" aria-labelledby="user">
+				{# <li>
+												                                                 <a href="{{ path('app_user_edit') }}"> 
+												                                                    <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.user'|trans }}
+												                                                </a>
+												                                            </li> #}
+				<li class="divider"></li>
+				{# <li>
+												                                                {# <a href="{{ path('security_logout') }}"> #}
+				{# <i class="fa fa-sign-out" aria-hidden="true"></i> {{ 'menu.logout'|trans }}
+												                                                </a>
+												                                            </li>  #}
+			</ul>
+		</li>
+	{% endif %}
+<li class="nav-item active">
+		<a class="nav-link" href="{{ path('app_panier') }}">
+			<i class="fa fa-shopping-cart"></i>
+			<div id="nombre"></div>
+		</a>
+
+	</li>
+</ul>
+
+<form class="form-inline my-2 my-lg-0" action="{{ path('app_recherche_ajax') }}" id="formSearch">
+	<input name="search" id="search" class="form-control mr-sm-2 col-12" type="search" placeholder="search" aria-label="search">
+	<button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">
+		Search
+	</button>
+</form>
+	</div>
+</div>
+</nav>

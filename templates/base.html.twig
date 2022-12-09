@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+        <!-- STYLE -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+        <!-- SCRIPT -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+
+        <div class="container-fluid">
+        <div class="row">
+
+       {% if app.user %}
+            {% block nav %}
+                {{ include("nav.html.twig") }}
+            {% endblock %}
+            {% block header %}
+                     {{ include("header.html.twig") }}
+                {% endblock %}
+       </div>
+            <div class="container">
+            {# {{ include("messages.html.twig") }} #}
+            <div id="main">
+            
+
+            
+
+             {% endif %}
+
+             
+
+            {% block body %}
+                <p>Ceci est le contenu de la balise <code>block body</code> du fichier 
+                    <mark>base.html.twig</mark>
+                </p>
+                <p>Le nombre est {{ nombre }}</p>
+                <p>Bonjour M. {{ nom }}</p>
+            {% endblock %}
+             </div>
+            
+           
+            </div>
+             
+            
+           
+        </div>
+        {% if app.user %}
+    <footer>
+                {% block footer %}
+                     {{ include("footer.html.twig") }}
+                {% endblock %}
+                
+            </footer>
+             {% endif %}
+    </body>
+</html>
+
+{# COMMENTAIRES #}
+{# 
+    - On ne met jamais de balise PHP dans un fichier Twig 
+    - L'équivalent de la balise PHP echo <?= ?> en Twig est : {{ }}
+    - Les balises twig ressemblent aux balises HTML
+        ouverture : {% 𝙗𝙖𝙡𝙞𝙨𝙚 %}
+        fermeture : {% end𝙗𝙖𝙡𝙞𝙨𝙚 %}
+
+#}

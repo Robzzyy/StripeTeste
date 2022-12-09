@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Fiche produit
+{% endblock %}
+
+{% block h1 %}Fiche produit n˚{{ produit.id }}
+{% endblock %}
+
+{% block body %}
+	<ul class="list-group">
+		<li class="list-group-item d-flex">
+			<div class="col-2">Référence</div>
+			<div class="col-10">{{produit.reference}}</div>
+		</li>
+		<li class="list-group-item d-flex">
+			<div class="col-2">Titre</div>
+			<div class="col-10">{{produit.titre}}</div>
+		</li>
+		<li class="list-group-item d-flex">
+			<div class="col-2">Catégorie</div>
+			<div class="col-10">{{produit.categorie}}</div>
+		</li>
+		<li class="list-group-item d-flex">
+			<div class="col-2">Prix</div>
+			<div class="col-10">{{produit.prix}}</div>
+		</li>
+		<li class="list-group-item d-flex">
+			<div class="col-2">Description</div>
+			<div class="col-10">{{produit.description}}</div>
+		</li>
+		<li class="list-group-item d-flex">
+			<div class="col-2">Stock</div>
+			<div class="col-10">{{produit.stock}}</div>
+		</li>
+		<li class="list-group-item d-flex">
+			<div class="col-2">Photo</div>
+			<div class="col-10">
+				<img class="vignette" src="{{ image_path ~ produit.photo }}" alt="Image de {{ produit.titre }}">
+			</div>
+		</li>
+
+		<li class="list-group-item d-flex">
+			<div class="col-2">Popularité</div>
+			<div class="col-10">Ce produit est apparu dans
+				{{produit.details|length}}
+				commande(s)</div>
+		</li>
+
+	</ul>
+
+	<div class="d-flex justify-content-between mt-3">
+		<a href="{{ path("app_home") }}" class="btn btn-secondary">
+			<i class="fa fa-home"></i>
+			Retour à l'accueil
+		</a>
+		<a href="{{ path("app_panier_ajouter", {id: produit.id, qte: 1}) }}" class="btn btn-primary ajax">
+			<i class="fa fa-cart-arrow-down"></i>
+			Ajouter au panier
+		</a>
+	</div>
+{% endblock %}
+

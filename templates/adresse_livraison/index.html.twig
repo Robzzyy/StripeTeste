@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdresseLivraisonController!{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {# <a href="{{ path('app_panier_valider') }}"
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    </a> #}
+
+       <!-- Display a payment form -->
+    {# <form id="payment-form">
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Pay now</span>
+      </button>
+      <div id="payment-message" class="hidden"></div>
+    </form> #}
+{{ form_end(form) }}
+{% endblock %}
