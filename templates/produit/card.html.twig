@@ -1,12 +1,9 @@
 {# <div class="col-4 my-2"> #}
     <div class="card" style="style="margin-right: 0;margin-left: 0;"">
         <img class="card-img-top mx-auto w-100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}">
-        <div class="card-body">
+        <div class="card h-100">
             <h5 class="card-title">Nom : {{ produit.titre }}</h5>
-            <p class="card-text">Référence : {{ produit.reference }}</p>
-            <p class="card-text">Catégorie : {{ produit.categorie }}</p>
             <p class="card-text">Prix : {{ produit.prix }} €</p>
-            <p class="card-text">Stock : {{ produit.stock }}</p>
             <a href="{{ path('app_produit_show', {id: produit.id}) }}" class="btn btn-primary">Voir</a>
             <form method="get" action="{{ path('app_panier_ajouter', {id: produit.id}) }}" id="form{{ produit.id }}">
                 <input name="qte" type="number" value="1">
