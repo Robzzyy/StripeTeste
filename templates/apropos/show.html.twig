@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apropos{% endblock %}
+
+{% block body %}
+    <h1>Apropos</h1>
+    
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ apropo.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ apropo.description }}</td>
+            </tr>
+            <tr>
+                <th>Date_enregistrement</th>
+                <td>{{ apropo.dateEnregistrement ? apropo.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Update_at</th>
+                <td>{{ apropo.updateAt ? apropo.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Delate_at</th>
+                <td>{{ apropo.delateAt ? apropo.delateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ apropo.titre }}</td>
+            </tr>
+            <tr>
+                <th>Files</th>
+                <td>{{ apropo.files ? apropo.files|json_encode : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_apropos_index') }}">back to list</a>
+
+    <a href="{{ path('app_apropos_edit', {'id': apropo.id}) }}">edit</a>
+
+    {{ include('apropos/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Apropos;
+/* La classe EntityRepository est une classe de base qui peut être étendue pour créer un référentiel de données pour une entité spécifique. */
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+/* La classe ManagerRegistry est une classe de base dans Doctrine qui fournit un mécanisme pour accéder aux gestionnaires d'entités dans une application */
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

@@ -10,16 +10,29 @@
     <button class="btn">{{ button_label|default('Save') }}</button>
     </a> #}
 
-       <!-- Display a payment form -->
-    {# <form id="payment-form">
-      <div id="payment-element">
-        <!--Stripe.js injects the Payment Element-->
-      </div>
-      <button id="submit">
-        <div class="spinner hidden" id="spinner"></div>
-        <span id="button-text">Pay now</span>
-      </button>
-      <div id="payment-message" class="hidden"></div>
-    </form> #}
+    <form action="/charge" method="post" id="payment-form">
+  <div class="form-row">
+    <label for="phone">Numéro de téléphone</label>
+    <input type="text" name="phone" id="phone">
+  </div>
+  <div class="form-row">
+    <label for="email">Adresse e-mail</label>
+    <input type="email" name="email" id="email">
+  </div>
+  <div class="form-row">
+    <label for="card-element">
+      Crédit ou débit
+    </label>
+    <div id="card-element">
+      <!-- A Stripe Element will be inserted here. -->
+    </div>
+
+    <!-- Used to display form errors. -->
+    <div id="card-errors" role="alert"></div>
+  </div>
+
+  <button>Soumettre le paiement</button>
+</form>
+
 {{ form_end(form) }}
 {% endblock %}

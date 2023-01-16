@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apropos index{% endblock %}
+
+{% block body %}
+    <h1>Apropos index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Date_enregistrement</th>
+                <th>Update_at</th>
+                <th>Delate_at</th>
+                <th>Titre</th>
+                <th>Files</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for apropo in apropos %}
+            <tr>
+                <td>{{ apropo.id }}</td>
+                <td>{{ apropo.description }}</td>
+                <td>{{ apropo.dateEnregistrement ? apropo.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ apropo.updateAt ? apropo.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ apropo.delateAt ? apropo.delateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ apropo.titre }}</td>
+                <td>{{ apropo.files ? apropo.files|json_encode : '' }}</td>
+                <td>
+                    <a href="{{ path('app_apropos_show', {'id': apropo.id}) }}">show</a>
+                    <a href="{{ path('app_apropos_edit', {'id': apropo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_apropos_new') }}">Create new</a>
+{% endblock %}
