@@ -4606,20 +4606,20 @@
         },
         {
             "name": "symfony/mailer",
-            "version": "v5.4.17",
+            "version": "v5.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "fd816412b76447890efedaf9ddfe8632589ce10c"
+                "reference": "66081dc01cfc04fdea08bbd253f44627ec5591dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/fd816412b76447890efedaf9ddfe8632589ce10c",
-                "reference": "fd816412b76447890efedaf9ddfe8632589ce10c",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/66081dc01cfc04fdea08bbd253f44627ec5591dd",
+                "reference": "66081dc01cfc04fdea08bbd253f44627ec5591dd",
                 "shasum": ""
             },
             "require": {
-                "egulias/email-validator": "^2.1.10|^3",
+                "egulias/email-validator": "^2.1.10|^3|^4",
                 "php": ">=7.2.5",
                 "psr/event-dispatcher": "^1",
                 "psr/log": "^1|^2|^3",
@@ -4662,7 +4662,7 @@
             "description": "Helps sending emails",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/mailer/tree/v5.4.17"
+                "source": "https://github.com/symfony/mailer/tree/v5.4.19"
             },
             "funding": [
                 {
@@ -4678,7 +4678,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-14T15:45:23+00:00"
+            "time": "2023-01-09T05:43:46+00:00"
         },
         {
             "name": "symfony/messenger",
