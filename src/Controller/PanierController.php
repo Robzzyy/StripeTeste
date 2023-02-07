@@ -130,41 +130,63 @@ public function supprimer(Produit $produit, Session $session)
      * @Route("/valider", name="app_panier_valider")
      
      */
+    /**
+ * Cette fonction valide une commande en enregistrant les informations 
+ * dans la base de données.
+ * 
+ * @param Session $session               La session actuelle
+ * @param ProduitRepository $produitRepository Le repository des produits
+ * @param EntityManagerInterface $em    L'entity manager pour gérer les requêtes en base de données
+ * @return RedirectionResponse           Une redirection vers la page de livraison ou vers le panier si vide
+ */
+public function valider(Session $session, ProduitRepository $produitRepository, EntityManagerInterface $em)
+{
+    // Récupération du panier enregistré en session
+    $panier = $session->get("panier", []);
+    
+    if ($panier) {
+        // Création d'une nouvelle commande
+        $cmd = new Commande;
+        $cmd->setDateEnregistrement(new DateTime());
+        $cmd->setEtat("en Attente");
+        // Affectation de l'utilisateur connecté à la propriété 'client' de l'objet $cmd
+        $cmd->setUser($this->getUser()); 
+        $montant = 0;
+        
+        // Pour chaque ligne du panier
+        foreach ($panier as $ligne) {
+            // Récupération du produit en base de données
+            $produit = $produitRepository->find($ligne["produit"]->getId());
+            $montant += $produit->getPrix() * $ligne["quantité"];
 
-    public function valider(Session $session, ProduitRepository $produitRepository, EntityManagerInterface $em)
-    {
-        $panier = $session->get("panier", []);
-        if ($panier) {
-            $cmd = new Commande;
-            $cmd->setDateEnregistrement(new DateTime());
-            $cmd->setEtat("en Attente");
-            $cmd->setUser($this->getUser()); // affecte l'utilisateur connecté a la propriété 'client' de l'objet $cmd
-            $montant = 0;
-            foreach ($panier as $ligne) {
-                /*  On recupere le produit en BDD plutot que d'utiliser l'objet produit enregistré en session, sinon il y a un bug
-                    (lié a la serialisation en session) qui ajoute un doublon dans la table produit
-                */
-                $produit = $produitRepository->find($ligne["produit"]->getId());
-                $montant += $produit->getPrix() * $ligne["quantite"];
+            // Création d'un nouveau détail de commande
+            $detail = new Detail;
+            $detail->setPrix($produit->getPrix());
+            $detail->setQuantite($ligne["quantite"]);
+            $detail->setProduit($produit);
+            $detail->setCommande($cmd);
+            // Ajout du détail de commande en attente d'exécution
+            $em->persist($detail); 
 
-                $detail = new Detail;
-                $detail->setPrix($produit->getPrix());
-                $detail->setQuantite($ligne["quantite"]);
-                $detail->setProduit($produit);
-                $detail->setCommande($cmd);
-                $em->persist($detail); // 'persist' est l'equivalant d'une requete préparée INSERT INTO. La requete est mise en attente.
-
-                $produit->setStock($produit->getStock() - $ligne["quantite"]);
-            }
-            $cmd->setMontant($montant);
-            $em->persist($cmd);
-            $em->flush(); // Toutes les requetes en attente sont executées
-            $session->remove("panier");
-            $this->addFlash("success", "Votre commande a été enregistrée");
-            return $this->redirectToRoute("app_adresse_livraison");
+            // Mise à jour du stock du produit
+            $produit->setStock($produit->getStock() - $ligne["quantité"]);
         }
-        $this->addFlash("danger", "Le panier est vide. Vous ne pouvez pas valider la commande.");
-        return $this->redirectToRoute("app_panier");
+        $cmd->setMontant($montant);
+        // Ajout de la commande en attente d'exécution
+        $em->persist($cmd);
+        // Exécution de toutes les requêtes en attente
+        $em->flush(); 
+        // Suppression du panier en session
+        $session->remove("panier");
+        // Ajout d'un message de succès
+        $this->addFlash("success", "Votre commande a été enregistrée");
+        // Redirection vers la page de livraison
+        return $this->redirectToRoute("app_adresse_livraison");
+    }
+    // Ajout d'un message d'erreur si le panier est vide
+    $this->addFlash("danger", "Le panier est vide. Vous ne pouvez pas valider la commande.");
+    // Redirection vers le panier
+
     }
 }
 
