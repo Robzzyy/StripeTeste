@@ -14,15 +14,21 @@ class RechercheController extends AbstractController
      * @Route("/recherche", name="app_recherche")
      */
     
-
+/* Ce code représente une fonction "index" qui prend en entrée une requête HTTP (Request $rq) et un référentiel de produits (ProduitRepository $pr). La fonction retourne une réponse HTTP (Response). */
     public function index(Request $rq, ProduitRepository $pr): Response
     {
-        $mot = $rq->query->get("search");
-        $produitsTrouves = $pr->recherche($mot);
-        return $this->render('recherche/index.html.twig', [
-            'produits'  => $produitsTrouves,
-            'mot'       => $mot
-        ]);
+       // Récupération du mot de recherche depuis la requête HTTP
+$mot = $rq->query->get("search");
+
+// Recherche des produits correspondants à ce mot de recherche
+$produitsTrouves = $pr->recherche($mot);
+
+// Affichage des résultats de la recherche
+return $this->render('recherche/index.html.twig', [
+  'produits'  => $produitsTrouves,
+  'mot'       => $mot
+]);
+
     }
 
     /**
