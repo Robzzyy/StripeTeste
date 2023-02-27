@@ -24,6 +24,17 @@ html {
   
 // }
 
+.roby {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 140px;
+  overflow: hidden;
+}
+
+
 h1 {
   font-size: 50px;
   line-height: 64px;
@@ -133,7 +144,7 @@ body {
 /* Home Page */
 
 #hero {
-   background-image: url("/public/images/hero4.png");
+   background-image: url("/public/img/hero4.png");
   height: 90vh;
   /* vh = hauteur du viewport */
   width: 100%;
@@ -158,7 +169,7 @@ body {
 }
 
 #hero button {
-    background-image: url("/public/images/hero4.png");
+    background-image: url("/public/img/hero4.png");
   background-color: transparent;
   color: #088178;
   border: 0;
@@ -306,7 +317,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-//  background-image: url(img/banner//b2.jpg);
+  background-image: url("/public/img/banner/b2.jpg");
   width: 100%;
   height: 40vh;
   background-size: cover;
